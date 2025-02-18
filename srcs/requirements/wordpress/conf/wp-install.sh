@@ -14,8 +14,8 @@ else
     curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
     chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
 
-    sed -i 's#listen = /run/php/php7.4-fpm.sock#listen = 0.0.0.0:9000#' /etc/php/7.4/fpm/pool.d/www.conf
-    sed -i 's#pid = /run/php/php7.4-fpm.pid#pid = 0.0.0.0:9000#' /etc/php/7.4/fpm/php-fpm.conf
+    sed -i 's#listen = /run/php/php8.1-fpm.sock#listen = 0.0.0.0:9000#' /etc/php/8.1/fpm/pool.d/www.conf
+    sed -i 's#pid = /run/php/php8.1-fpm.pid#pid = 0.0.0.0:9000#' /etc/php/8.1/fpm/php-fpm.conf
 
     cd /var/www/html 
     wp core download --allow-root
@@ -42,7 +42,7 @@ else
 
     # Create additional users
     wp user create $WP_USER1 $WP_EMAIL1 --role=author --user_pass=$WP_PASS1 --allow-root
-    wp user create $WP_USER1 $WP_EMAIL2 --role=author --user_pass=$WP_PASS2 --allow-root
+    wp user create $WP_USER2 $WP_EMAIL2 --role=author --user_pass=$WP_PASS2 --allow-root
 
     # Set permissions
     chown -R www-data:www-data /var/www/html/
@@ -52,4 +52,4 @@ fi
 mkdir -p /run/php
 
 # Start PHP-FPM
-exec php-fpm7.4 -F
+exec php-fpm8.1 -F

@@ -1,5 +1,5 @@
 DOMAIN_NAME=akheired.42.fr
-TITLE=Ma9La Edition
+TITLE=Ma9La
 CERT_=./requirements/tools/akheired.42.fr.crt
 KEY_=./requirements/tools/akheired.42.fr.key
 DB_NAME=wordpress
@@ -8,7 +8,7 @@ DB_USER=wpuser
 DB_PASS=wppass
 DB_EMAIL=ma9la.42.fr
 WP_ADMIN=ma9la
-WP_ADMIN_PASS=lokoloko007 
+WP_ADMIN_PASS=lokoloko007
 WP_ADMIN_EMAIL=ma9la@akheired.42.fr
 WP_USER1=malakom
 WP_USER2=kaskita

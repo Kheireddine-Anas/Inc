@@ -16,7 +16,8 @@ RUN mkdir -p /var/run/mysqld && \
     chown mysql:mysql /var/run/mysqld && \
     chmod 755 /var/run/mysqld
 
-RUN sed -i "s|socket = /run/mysqld/mysqld.sock|socket = 0.0.0.0|g" /etc/mysql/mariadb.cnf
+#RUN sed -i "s|socket = /run/mysqld/mysqld.sock|socket = 0.0.0.0|g" /etc/mysql/mariadb.cnf
+RUN sed -i "s|/run/mysqld/mysqld.sock|/var/run/mysqld/mysqld.sock|g" /etc/mysql/mariadb.conf.d/50-server.cnf
 RUN sed -i "s|bind-address            = 127.0.0.1|bind-address            = 0.0.0.0|g" /etc/mysql/mariadb.conf.d/50-server.cnf
 
 # Initialize the database

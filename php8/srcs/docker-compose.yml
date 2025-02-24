@@ -24,7 +24,7 @@ services:
     restart: always
     depends_on:
       - mariadb
-    volumes:  
+    volumes:
       - wp-volume:/var/www/html/
   
   mariadb:
@@ -40,18 +40,21 @@ services:
     restart: always
     volumes:
       - db-volume:/var/lib/mysql
+
   redis:
     container_name: redis
     build:
       context: ./requirements/redis
     networks:
       - inception
+    ports:
+      - "6379:6379"
     volumes:
       - redis-volume:/data
     restart: always
 
+
 volumes:
-  redis-volume:
   wp-volume:
     driver_opts:
       type: none
@@ -62,6 +65,11 @@ volumes:
       type: none
       o: bind
       device: /home/akheired/data/mariadb
+  redis-volume:
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/akheired/data/redis
 
 networks:
   inception:

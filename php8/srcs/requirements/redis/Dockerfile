@@ -1,11 +1,9 @@
 FROM debian:bullseye
 
-RUN apt-get update && apt-get install -y redis
+RUN apt-get update && apt-get install -y redis-server
 
-# Disable THP and set overcommit_memory
-RUN echo madvise > /sys/kernel/mm/transparent_hugepage/enabled && \
-    echo 1 > /proc/sys/vm/overcommit_memory
+RUN mkdir -p /etc/redis && \
+    echo "bind 0.0.0.0" >> /etc/redis/redis.conf
 
-COPY ./conf/redis.conf /etc/redis/redis.conf
 
-CMD ["redis-server", "/etc/redis/redis.conf"]
+CMD ["redis-server", "--protected-mode", "no"]

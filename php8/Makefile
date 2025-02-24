@@ -2,6 +2,7 @@ name = Inception
 
 all:
 	@bash /home/akheired/kira/srcs/requirements/wordpress/tools/check_dir.sh
+	@if [ ! -d "/home/akheired/data/redis" ]; then mkdir -p /home/akheired/data/redis; fi
 	@printf "Running configuration ${name}... 🚀\n"
 	@docker-compose -f ./srcs/docker-compose.yml up --build -d
 

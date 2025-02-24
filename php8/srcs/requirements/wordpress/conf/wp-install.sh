@@ -33,15 +33,17 @@ else
 
     # Add dynamic URL configuration to wp-config.php
     echo "Adding dynamic URL configuration to wp-config.php"
-    echo "define('WP_HOME', 'https://' . \$_SERVER['HTTP_HOST']);" >> /var/www/html/wp-config.php
-    echo "define('WP_SITEURL', 'https://' . \$_SERVER['HTTP_HOST']);" >> /var/www/html/wp-config.php
-    echo "define('WP_REDIS_HOST', 'redis');" >> /var/www/html/wp-config.php
+    echo "define('WP_HOME', 'https://$DOMAIN_NAME');" >> /var/www/html/wp-config.php
+    echo "define('WP_SITEURL', 'https://$DOMAIN_NAME');" >> /var/www/html/wp-config.php
     echo "define('WP_REDIS_PORT', 6379);" >> /var/www/html/wp-config.php
 
     # Update siteurl and home to use the VM's IP address
-    wp option update siteurl "https://localhost" --allow-root
-    wp option update home "https://localhost" --allow-root
-
+    wp option update siteurl "https://$DOMAIN_NAME" --allow-root
+    wp option update home "https://$DOMAIN_NAME" --allow-root
+    wp config set WP_REDIS_HOST 'redis' --allow-root
+    wp config set WP_CACHE 'true' --raw --allow-root
+    wp plugin install redis-cache --activate --allow-root
+    wp redis enable --allow-root
     # Create additional users
     wp user create $WP_USER1 $WP_EMAIL1 --role=author --user_pass=$WP_PASS1 --allow-root
     wp user create $WP_USER2 $WP_EMAIL2 --role=author --user_pass=$WP_PASS2 --allow-root
@@ -55,3 +57,4 @@ mkdir -p /run/php
 
 # Start PHP-FPM
 exec php-fpm8.1 -F
+

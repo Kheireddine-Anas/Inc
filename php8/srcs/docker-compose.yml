@@ -53,6 +53,24 @@ services:
       - redis-volume:/data
     restart: always
 
+  ftp:
+    container_name: ftp
+    build:
+      context: ./requirements/ftp
+      args:
+        FTP_USER: ${FTP_USER}
+        FTP_PASS: ${FTP_PASS}
+    networks:
+      - inception
+    volumes:
+      - wp-volume:/var/www/html
+    ports:
+      - "20:20"
+      - "21:21"
+      - "30000-30009:30000-30009"
+    env_file:
+      - .env
+    restart: always
 
 volumes:
   wp-volume:

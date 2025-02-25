@@ -72,6 +72,18 @@ services:
       - .env
     restart: always
 
+  adminer:
+    container_name: adminer
+    build:
+      context: ./requirements/adminer
+    networks:
+      - inception
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mariadb
+    restart: always
+
 volumes:
   wp-volume:
     driver_opts:

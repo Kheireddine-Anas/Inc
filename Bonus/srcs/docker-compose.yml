@@ -71,7 +71,15 @@ services:
     env_file:
       - .env
     restart: always
-
+  
+  static:
+    container_name: static
+    build:
+      context: ./requirements/static_web
+    networks:
+      - inception
+    restart: always
+    
   adminer:
     container_name: adminer
     build:
@@ -82,6 +90,17 @@ services:
       - "8080:8080"
     depends_on:
       - mariadb
+    restart: always
+
+  portainer:
+    container_name: portainer
+    build:
+      context: ./requirements/portainer
+    networks:
+      - inception
+    volumes:
+      - portainer-data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
     restart: always
 
 volumes:
@@ -100,7 +119,7 @@ volumes:
       type: none
       o: bind
       device: /home/akheired/data/redis
-
+  portainer-data:
 networks:
   inception:
     driver: bridge

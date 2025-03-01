@@ -10,7 +10,6 @@ then
     echo "Wordpress already downloaded"
 else
     echo "Downloading WordPress"
-    # Download WordPress
     curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
     chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
 
@@ -38,8 +37,8 @@ else
     echo "define('WP_REDIS_PORT', 6379);" >> /var/www/html/wp-config.php
 
     # Update siteurl and home to use the VM's IP address
-    wp option update siteurl "https://$DOMAIN_NAME" --allow-root
-    wp option update home "https://$DOMAIN_NAME" --allow-root
+    # wp option update siteurl "https://$DOMAIN_NAME" --allow-root
+    # wp option update home "https://$DOMAIN_NAME" --allow-root
     wp config set WP_REDIS_HOST 'redis' --allow-root
     wp config set WP_CACHE 'true' --raw --allow-root
     wp plugin install redis-cache --activate --allow-root
@@ -52,9 +51,7 @@ else
     chown -R www-data:www-data /var/www/html/
 fi
 
-# Ensure the /run/php directory exists
 mkdir -p /run/php
 
 # Start PHP-FPM
 exec php-fpm8.1 -F
-

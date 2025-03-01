@@ -11,7 +11,6 @@ RUN apt-get update && apt-get install -y \
 RUN curl -sSLo /usr/share/keyrings/deb.sury.org-php.gpg https://packages.sury.org/php/apt.gpg
 RUN echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list
 
-# Install PHP 8.1 and required extensions
 RUN apt-get update && apt-get install -y \
     mariadb-client \
     php8.1 \

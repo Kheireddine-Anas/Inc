@@ -1,10 +1,8 @@
 #!/bin/bash
 
-# Directories to create
 MARIADB_DIR="/home/akheired/data/mariadb"
 WORDPRESS_DIR="/home/akheired/data/wordpress"
 
-# Delete directories if they exist
 if [ -d "$MARIADB_DIR" ]; then
     echo "Deleting existing MariaDB directory..."
     rm -rf "$MARIADB_DIR"
@@ -15,12 +13,10 @@ if [ -d "$WORDPRESS_DIR" ]; then
     rm -rf "$WORDPRESS_DIR"
 fi
 
-# Create directories
 echo "Creating directories..."
 mkdir -p "$MARIADB_DIR"
 mkdir -p "$WORDPRESS_DIR"
 
-# Set permissions
 echo "Setting permissions..."
 sudo chown -R $USER:$USER "$MARIADB_DIR"
 sudo chown -R $USER:$USER "$WORDPRESS_DIR"
